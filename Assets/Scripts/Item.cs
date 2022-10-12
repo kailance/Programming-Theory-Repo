@@ -22,9 +22,9 @@ public class Item : MonoBehaviour
     protected int size;
     public int demand { get; protected set; }
     protected string itemName;
-    public TextMeshProUGUI baseString;
-    public TextMeshProUGUI nameString;
-    public TextMeshProUGUI priceString;
+    [SerializeField] private TextMeshProUGUI baseString;
+    [SerializeField] private TextMeshProUGUI nameString;
+    [SerializeField] private TextMeshProUGUI priceString;
     protected void DisplayItemInfo()
     {
         baseString.text = basePrice.ToString();
@@ -33,19 +33,19 @@ public class Item : MonoBehaviour
     }
     protected float RandomModifier()
     {
-        if (GameObject.FindGameObjectWithTag("calander").GetComponent<Calander>().season == 0)
+        if (GameObject.FindGameObjectWithTag("Calander").GetComponent<Calander>().season == 0)
         {
             float i =
             Random.Range(springMin, springMax);
             return i;
         }
-        else if (GameObject.FindGameObjectWithTag("calander").GetComponent<Calander>().season == 1)
+        else if (GameObject.FindGameObjectWithTag("Calander").GetComponent<Calander>().season == 1)
         {
             float i =
             Random.Range(summerMin, summerMax);
             return i;
         }
-        else if (GameObject.FindGameObjectWithTag("calander").GetComponent<Calander>().season == 2)
+        else if (GameObject.FindGameObjectWithTag("Calander").GetComponent<Calander>().season == 2)
         {
             float i =
             Random.Range(fallMin, fallMax);
