@@ -6,9 +6,9 @@ using TMPro;
 public class Item : MonoBehaviour
 {
     protected int basePrice { get; set; }
-    public int price;
-    protected int unit;
-    protected int total;
+    public int price { get; protected set; }
+    public int unit { get; protected set; }
+    public int total { get; protected set; }
     protected float priceModifier;
     protected float springMin;
     protected float springMax;
@@ -25,6 +25,9 @@ public class Item : MonoBehaviour
     [SerializeField] private TextMeshProUGUI baseString;
     [SerializeField] private TextMeshProUGUI nameString;
     [SerializeField] private TextMeshProUGUI priceString;
+    [SerializeField] private TextMeshProUGUI unitString;
+    [SerializeField] private TextMeshProUGUI totalString;
+    [SerializeField] private GameObject calanderObject;
     protected void DisplayItemInfo()
     {
         baseString.text = basePrice.ToString();
@@ -33,19 +36,19 @@ public class Item : MonoBehaviour
     }
     protected float RandomModifier()
     {
-        if (GameObject.FindGameObjectWithTag("Calander").GetComponent<Calander>().season == 0)
+        if (calanderObject.GetComponent<Calander>().season == 0)
         {
             float i =
             Random.Range(springMin, springMax);
             return i;
         }
-        else if (GameObject.FindGameObjectWithTag("Calander").GetComponent<Calander>().season == 1)
+        else if (calanderObject.GetComponent<Calander>().season == 1)
         {
             float i =
             Random.Range(summerMin, summerMax);
             return i;
         }
-        else if (GameObject.FindGameObjectWithTag("Calander").GetComponent<Calander>().season == 2)
+        else if (calanderObject.GetComponent<Calander>().season == 2)
         {
             float i =
             Random.Range(fallMin, fallMax);
@@ -57,5 +60,26 @@ public class Item : MonoBehaviour
             Random.Range(winterMin, winterMax);
             return i;
         }
+    }
+    public void UnitChangeUp()
+    {
+        unit += 1;
+        CalculateTotal();
+        UnitAndTotalUpdate();
+    }
+    public void UnitChangeDown()
+    {
+        unit -= 1;
+        CalculateTotal();
+        UnitAndTotalUpdate();
+    }
+    private void UnitAndTotalUpdate()
+    {
+        unitString.text = unit.ToString();
+        totalString.text = total.ToString();
+    }
+    private void CalculateTotal()
+    {
+        total = price * unit;
     }
 }
