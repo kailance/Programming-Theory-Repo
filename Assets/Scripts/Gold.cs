@@ -48,6 +48,17 @@ public class Gold : MonoBehaviour
         storeDemandLevelText.text = "Demand: " + demandLevel + "x";
         warehouseStorageText.text = storageLevel.ToString() + "/" + ((warehouseLevel + 1) * 100);
     }
+    private bool StorageSizeCheck(int u, int s)
+    {
+        if (u * s <= (warehouseLevel + 1) * 100)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     private void UpdateUpgradeAndDowngradeCostsAndUpkeep()
     {
         if (storeLevel == 0)
@@ -169,7 +180,10 @@ public class Gold : MonoBehaviour
     }
     public void BuyItems()
     {
-        if (itemsObject.GetComponent<Firewood>().total + itemsObject.GetComponent<Furniture>().total + itemsObject.GetComponent<Jewelry>().total + itemsObject.GetComponent<Grain>().total + itemsObject.GetComponent<Flowers>().total <= gold)
+        if (itemsObject.GetComponent<Firewood>().total + itemsObject.GetComponent<Furniture>().total + itemsObject.GetComponent<Jewelry>().total + itemsObject.GetComponent<Grain>().total + itemsObject.GetComponent<Flowers>().total <= gold 
+            && StorageSizeCheck(itemsObject.GetComponent<Firewood>().unit, itemsObject.GetComponent<Firewood>().size) && StorageSizeCheck(itemsObject.GetComponent<Furniture>().unit, itemsObject.GetComponent<Furniture>().size) &&
+            StorageSizeCheck(itemsObject.GetComponent<Jewelry>().unit, itemsObject.GetComponent<Jewelry>().size) && StorageSizeCheck(itemsObject.GetComponent<Grain>().unit, itemsObject.GetComponent<Grain>().size) &&
+            StorageSizeCheck(itemsObject.GetComponent<Flowers>().unit, itemsObject.GetComponent<Flowers>().size))
         {
             gold -= (itemsObject.GetComponent<Firewood>().total + itemsObject.GetComponent<Furniture>().total + itemsObject.GetComponent<Jewelry>().total + itemsObject.GetComponent<Grain>().total + itemsObject.GetComponent<Flowers>().total);
             storefrontObject.GetComponent<StoreFirewood>().unit += itemsObject.GetComponent<Firewood>().unit;
@@ -202,12 +216,18 @@ public class Gold : MonoBehaviour
             storefrontObject.GetComponent<StoreJewelry>().UpdateUnitText();
             storefrontObject.GetComponent<StoreGrain>().UpdateUnitText();
             storefrontObject.GetComponent<StoreFlowers>().UpdateUnitText();
+            UpdateStorageAmount();
         }
         else
         {
             insufficientFundsObject.SetActive(true);
             StartCoroutine(RemoveInsufficientFundsText());
         }
+    }
+    public void UpdateStorageAmount()
+    {
+        storageLevel += (storefrontObject.GetComponent<StoreFirewood>().unit * itemsObject.GetComponent<Firewood>().size) + (storefrontObject.GetComponent<StoreFurniture>().unit * itemsObject.GetComponent<Furniture>().size) + (storefrontObject.GetComponent<StoreJewelry>().unit * 
+            itemsObject.GetComponent<Jewelry>().size) + (storefrontObject.GetComponent<StoreGrain>().unit * itemsObject.GetComponent<Grain>().size) + (storefrontObject.GetComponent<StoreFlowers>().unit * itemsObject.GetComponent<Flowers>().size);
     }
     private int DemandCheck(int d, int u)
     {
