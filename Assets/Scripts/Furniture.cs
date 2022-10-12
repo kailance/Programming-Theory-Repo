@@ -8,9 +8,20 @@ public class Furniture : Item
     {
         basePrice = 50;
         itemName = "Furniture";
-        Total = 0;
-        Unit = 0;
-        price = basePrice;
+        total = 0;
+        unit = 0;
+        size = 3;
+        springMin = 1.1f;
+        springMax = 1.2f;
+        summerMin = 1f;
+        summerMax = 1.1f;
+        fallMin = .9f;
+        fallMax = 1.0f;
+        winterMin = 1.0f;
+        winterMax = 1.1f;
+        priceModifier = RandomModifier();
+        demand = Mathf.RoundToInt(10 * priceModifier);
+        price = Mathf.RoundToInt(basePrice * priceModifier);
         DisplayItemInfo();
     }
 }
