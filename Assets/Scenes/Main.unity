@@ -2728,6 +2728,8 @@ MonoBehaviour:
   priceText: {fileID: 1869293152}
   unitText: {fileID: 521008672}
   totalText: {fileID: 1936548998}
+  summaryTotalText: {fileID: 2004145171}
+  summaryUnitText: {fileID: 45686601}
   itemsObject: {fileID: 2043535952}
   goldObject: {fileID: 1383663579}
 --- !u!114 &186967188
@@ -2747,6 +2749,8 @@ MonoBehaviour:
   priceText: {fileID: 1302011816}
   unitText: {fileID: 2092473028}
   totalText: {fileID: 1572301428}
+  summaryTotalText: {fileID: 930991178}
+  summaryUnitText: {fileID: 1249278807}
   itemsObject: {fileID: 2043535952}
   goldObject: {fileID: 1383663579}
 --- !u!114 &186967189
@@ -2766,6 +2770,8 @@ MonoBehaviour:
   priceText: {fileID: 1550661791}
   unitText: {fileID: 348808703}
   totalText: {fileID: 713839108}
+  summaryTotalText: {fileID: 1878313393}
+  summaryUnitText: {fileID: 47404565}
   itemsObject: {fileID: 2043535952}
   goldObject: {fileID: 1383663579}
 --- !u!114 &186967190
@@ -2785,6 +2791,8 @@ MonoBehaviour:
   priceText: {fileID: 1267405342}
   unitText: {fileID: 240887961}
   totalText: {fileID: 559732537}
+  summaryTotalText: {fileID: 1300557073}
+  summaryUnitText: {fileID: 73693877}
   itemsObject: {fileID: 2043535952}
   goldObject: {fileID: 1383663579}
 --- !u!114 &186967191
@@ -2804,6 +2812,8 @@ MonoBehaviour:
   priceText: {fileID: 237156381}
   unitText: {fileID: 1876247086}
   totalText: {fileID: 1566276926}
+  summaryTotalText: {fileID: 1117511322}
+  summaryUnitText: {fileID: 463696298}
   itemsObject: {fileID: 2043535952}
   goldObject: {fileID: 1383663579}
 --- !u!1 &201827061
@@ -3093,7 +3103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &216643148
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16094,7 +16104,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0032348633, y: 19.819}
+  m_AnchoredPosition: {x: -0.0032348633, y: 19.81897}
   m_SizeDelta: {x: 0, y: -340.2309}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1354663905
@@ -16533,6 +16543,8 @@ MonoBehaviour:
   storeUpkeepCostText: {fileID: 2003177891}
   warehouseUpkeepCostText: {fileID: 1835650786}
   goldText: {fileID: 2091127363}
+  totalText: {fileID: 463543332}
+  unitTotalText: {fileID: 1235774180}
   insufficientFundsObject: {fileID: 368217680}
   itemsObject: {fileID: 2043535952}
   storefrontObject: {fileID: 186967184}
@@ -18098,6 +18110,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 216643147}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1563201393}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1383663580}
+        m_TargetAssemblyTypeName: Gold, Assembly-CSharp
+        m_MethodName: IncomeSummary
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1562222161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18153,7 +18201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1563201394
 RectTransform:
   m_ObjectHideFlags: 0

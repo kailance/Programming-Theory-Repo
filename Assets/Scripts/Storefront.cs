@@ -7,25 +7,28 @@ public class Storefront : MonoBehaviour
 {
     public int unit;
     public int expectedTotalSale;
-    public int sale { get; private set; }
+    public int sale { get; protected set; }
     [SerializeField] public TextMeshProUGUI priceText;
-    [SerializeField] private TextMeshProUGUI unitText;
-    [SerializeField] private TextMeshProUGUI totalText;   
-    [SerializeField] private GameObject itemsObject;
-    [SerializeField] private GameObject goldObject;
+    [SerializeField] protected TextMeshProUGUI unitText;
+    [SerializeField] protected TextMeshProUGUI totalText;
+    [SerializeField] protected TextMeshProUGUI summaryTotalText;
+    [SerializeField] protected TextMeshProUGUI summaryUnitText;
+    [SerializeField] protected GameObject itemsObject;
+    [SerializeField] protected GameObject goldObject;
     void Start()
     {
         StartCoroutine(WaitToUpdate());
     }
-    public void UpdateUnitText()
+    public virtual void UpdateUnitText()
     {
         unitText.text = unit.ToString();
     }
     public void UpdateTotalText()
     {
         totalText.text = expectedTotalSale.ToString();
+        summaryTotalText.text = expectedTotalSale.ToString();
     }
-    public void Sell()
+    public virtual void Sell()
     {
         if(sale == 1)
         {
@@ -37,6 +40,10 @@ public class Storefront : MonoBehaviour
         }
         goldObject.GetComponent<Gold>().ExpectedTotalSales();
     }
+    protected virtual void UpdatePriceText()
+    {
+        priceText.text = itemsObject.GetComponent<Firewood>().price.ToString();
+    }
     IEnumerator WaitToUpdate()
     {
         yield return new WaitForSeconds(.01f);
@@ -44,5 +51,22 @@ public class Storefront : MonoBehaviour
         UpdateUnitText();
         goldObject.GetComponent<Gold>().ExpectedTotalSales();
         goldObject.GetComponent<Gold>().UpdateLevelText();
+    }
+    protected void IntSwitch()
+    {
+        if (sale == 1)
+        {
+            sale = 0;
+        }
+        else
+        {
+            sale = 1;
+        }
+    }
+    public void DailyUpdate()
+    {
+        UpdatePriceText();
+        UpdateUnitText();
+        UpdateTotalText();
     }
 }

@@ -33,6 +33,7 @@ public class Item : MonoBehaviour
         baseString.text = basePrice.ToString();
         nameString.text = itemName;
         priceString.text = price.ToString();
+        totalString.text = total.ToString();
     }
     protected float RandomModifier()
     {
@@ -84,9 +85,10 @@ public class Item : MonoBehaviour
     }
     public void NextDayPrices()
     {
-        RandomModifier();
+        priceModifier = RandomModifier();
         price = Mathf.RoundToInt(basePrice * priceModifier);
         demand = Mathf.RoundToInt(50 * priceModifier);
+        CalculateTotal();
         DisplayItemInfo();
     }
 }

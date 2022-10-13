@@ -16,6 +16,8 @@ public class Gold : MonoBehaviour
     [SerializeField] private TextMeshProUGUI storeUpkeepCostText;
     [SerializeField] private TextMeshProUGUI warehouseUpkeepCostText;
     [SerializeField] private TextMeshProUGUI goldText;
+    [SerializeField] private TextMeshProUGUI totalText;
+    [SerializeField] private TextMeshProUGUI unitTotalText;
     [SerializeField] private GameObject insufficientFundsObject;
     [SerializeField] private GameObject itemsObject;
     [SerializeField] private GameObject storefrontObject;
@@ -229,7 +231,7 @@ public class Gold : MonoBehaviour
         storageLevel += (storefrontObject.GetComponent<StoreFirewood>().unit * itemsObject.GetComponent<Firewood>().size) + (storefrontObject.GetComponent<StoreFurniture>().unit * itemsObject.GetComponent<Furniture>().size) + (storefrontObject.GetComponent<StoreJewelry>().unit * 
             itemsObject.GetComponent<Jewelry>().size) + (storefrontObject.GetComponent<StoreGrain>().unit * itemsObject.GetComponent<Grain>().size) + (storefrontObject.GetComponent<StoreFlowers>().unit * itemsObject.GetComponent<Flowers>().size);
     }
-    private int DemandCheck(int d, int u)
+    public int DemandCheck(int d, int u)
     {
         if (demandLevel * d > u)
         {
@@ -267,7 +269,22 @@ public class Gold : MonoBehaviour
         itemsObject.GetComponent<Jewelry>().NextDayPrices();
         itemsObject.GetComponent<Grain>().NextDayPrices();
         itemsObject.GetComponent<Flowers>().NextDayPrices();
+        storefrontObject.GetComponent<StoreFirewood>().DailyUpdate();
+        storefrontObject.GetComponent<StoreFurniture>().DailyUpdate();
+        storefrontObject.GetComponent<StoreJewelry>().DailyUpdate();
+        storefrontObject.GetComponent<StoreGrain>().DailyUpdate();
+        storefrontObject.GetComponent<StoreFlowers>().DailyUpdate();
         ExpectedTotalSales();
+    }
+    public void IncomeSummary()
+    {
+        totalText.text = (storefrontObject.GetComponent<StoreFirewood>().expectedTotalSale + storefrontObject.GetComponent<StoreFurniture>().expectedTotalSale + storefrontObject.GetComponent<StoreJewelry>().expectedTotalSale +
+            storefrontObject.GetComponent<StoreGrain>().expectedTotalSale + storefrontObject.GetComponent<StoreFlowers>().expectedTotalSale).ToString();
+        unitTotalText.text = ((DemandCheck(itemsObject.GetComponent<Firewood>().demand, storefrontObject.GetComponent<StoreFirewood>().unit) * storefrontObject.GetComponent<StoreFirewood>().sale) + 
+            (DemandCheck(itemsObject.GetComponent<Furniture>().demand, storefrontObject.GetComponent<StoreFurniture>().unit) * storefrontObject.GetComponent<StoreFurniture>().sale) +
+            (DemandCheck(itemsObject.GetComponent<Jewelry>().demand, storefrontObject.GetComponent<StoreJewelry>().unit) * storefrontObject.GetComponent<StoreJewelry>().sale) + 
+            (DemandCheck(itemsObject.GetComponent<Grain>().demand, storefrontObject.GetComponent<StoreGrain>().unit) * storefrontObject.GetComponent<StoreGrain>().sale) +
+            (DemandCheck(itemsObject.GetComponent<Flowers>().demand, storefrontObject.GetComponent<StoreFlowers>().unit) * storefrontObject.GetComponent<StoreFlowers>().sale)).ToString();
     }
     public void UpdatePriceText()
     {
