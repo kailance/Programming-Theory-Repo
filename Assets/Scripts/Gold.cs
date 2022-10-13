@@ -253,6 +253,22 @@ public class Gold : MonoBehaviour
         storefrontObject.GetComponent<StoreGrain>().UpdateTotalText();
         storefrontObject.GetComponent<StoreFlowers>().UpdateTotalText();
     }
+    public void NextDaySales()
+    {
+        gold += storefrontObject.GetComponent<StoreFirewood>().expectedTotalSale + storefrontObject.GetComponent<StoreFurniture>().expectedTotalSale + storefrontObject.GetComponent<StoreJewelry>().expectedTotalSale + 
+            storefrontObject.GetComponent<StoreGrain>().expectedTotalSale + storefrontObject.GetComponent<StoreFlowers>().expectedTotalSale;
+        storefrontObject.GetComponent<StoreFirewood>().unit -= DemandCheck(itemsObject.GetComponent<Firewood>().demand, storefrontObject.GetComponent<StoreFirewood>().unit);
+        storefrontObject.GetComponent<StoreFurniture>().unit -= DemandCheck(itemsObject.GetComponent<Furniture>().demand, storefrontObject.GetComponent<StoreFurniture>().unit);
+        storefrontObject.GetComponent<StoreJewelry>().unit -= DemandCheck(itemsObject.GetComponent<Jewelry>().demand, storefrontObject.GetComponent<StoreJewelry>().unit);
+        storefrontObject.GetComponent<StoreGrain>().unit -= DemandCheck(itemsObject.GetComponent<Grain>().demand, storefrontObject.GetComponent<StoreGrain>().unit);
+        storefrontObject.GetComponent<StoreFlowers>().unit -= DemandCheck(itemsObject.GetComponent<Flowers>().demand, storefrontObject.GetComponent<StoreFlowers>().unit);
+        itemsObject.GetComponent<Firewood>().NextDayPrices();
+        itemsObject.GetComponent<Furniture>().NextDayPrices();
+        itemsObject.GetComponent<Jewelry>().NextDayPrices();
+        itemsObject.GetComponent<Grain>().NextDayPrices();
+        itemsObject.GetComponent<Flowers>().NextDayPrices();
+        ExpectedTotalSales();
+    }
     public void UpdatePriceText()
     {
         storefrontObject.GetComponent<StoreFirewood>().priceText.text = itemsObject.GetComponent<Firewood>().price.ToString();

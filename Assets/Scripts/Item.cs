@@ -82,4 +82,11 @@ public class Item : MonoBehaviour
     {
         total = price * unit;
     }
+    public void NextDayPrices()
+    {
+        RandomModifier();
+        price = Mathf.RoundToInt(basePrice * priceModifier);
+        demand = Mathf.RoundToInt(50 * priceModifier);
+        DisplayItemInfo();
+    }
 }
