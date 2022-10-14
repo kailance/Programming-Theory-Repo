@@ -10,6 +10,8 @@ public class Item : MonoBehaviour
     protected int Unit;
     protected int Total;
     protected string itemName;
+    public float eventDemandMod;
+    public float eventPriceMod;
     public TextMeshProUGUI baseString;
     public TextMeshProUGUI nameString;
     public TextMeshProUGUI priceString;

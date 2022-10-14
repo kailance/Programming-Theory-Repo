@@ -2296,6 +2296,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 0
+  eventDemandMod: 1
+  eventPriceMod: 1
   baseString: {fileID: 637282539}
   nameString: {fileID: 116699861}
   priceString: {fileID: 960490268}
@@ -2396,6 +2398,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 0
+  eventDemandMod: 1
+  eventPriceMod: 1
   baseString: {fileID: 1742628613}
   nameString: {fileID: 1892690361}
   priceString: {fileID: 2088213376}
@@ -3432,7 +3436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &751443922
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4080,6 +4084,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 0
+  eventDemandMod: 1
+  eventPriceMod: 1
   baseString: {fileID: 1374195978}
   nameString: {fileID: 2123786991}
   priceString: {fileID: 151346467}
@@ -6418,6 +6424,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 0
+  eventDemandMod: 1
+  eventPriceMod: 1
   baseString: {fileID: 1570848}
   nameString: {fileID: 431787450}
   priceString: {fileID: 1585107784}
@@ -7601,7 +7609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1686800174
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8137,6 +8145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 0
+  eventDemandMod: 1
+  eventPriceMod: 1
   baseString: {fileID: 1683461432}
   nameString: {fileID: 664295837}
   priceString: {fileID: 736674680}
@@ -8638,6 +8648,8 @@ MonoBehaviour:
   date: 0
   season: 0
   dateAndSeason: {fileID: 439394469}
+  eventText: {fileID: 0}
+  itemsObject: {fileID: 0}
 --- !u!1 &2001588211
 GameObject:
   m_ObjectHideFlags: 0
