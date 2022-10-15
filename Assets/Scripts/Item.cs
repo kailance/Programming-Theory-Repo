@@ -72,7 +72,10 @@ public class Item : MonoBehaviour
     }
     public void UnitChangeDown()
     {
-        unit -= 1;
+        if(unit > 0)
+        {
+            unit -= 1;
+        }
         CalculateTotal();
         UnitAndTotalUpdate();
     }

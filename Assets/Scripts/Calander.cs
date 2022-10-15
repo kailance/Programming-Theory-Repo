@@ -20,6 +20,7 @@ public class Calander : MonoBehaviour
     public void NextDay()
     {
         UpdateDate();
+        eventString = "";
         ClearModificationEffects();
         RunAllEventChecks();
         UpdateString();
@@ -233,9 +234,9 @@ public class Calander : MonoBehaviour
         date = 1;
         calanderString = new string[39];
         AddFixedEventInfo();
-        UpdateString();
         ClearModificationEffects();
         RunAllEventChecks();
         UpdateCalanderText();
+        UpdateString();
     }
 }

@@ -6,32 +6,26 @@ using TMPro;
 public class Gold : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI storefrontPriceText;
-    [SerializeField] private TextMeshProUGUI storefrontDowngradeProfitText;
     [SerializeField] private TextMeshProUGUI warehousePriceText;
-    [SerializeField] private TextMeshProUGUI warehouseDowngradeProfitText;
     [SerializeField] private TextMeshProUGUI storeLevelText;
     [SerializeField] private TextMeshProUGUI warehouseLevelText;
     [SerializeField] private TextMeshProUGUI storeDemandLevelText;
     [SerializeField] private TextMeshProUGUI warehouseStorageText;
-    [SerializeField] private TextMeshProUGUI storeUpkeepCostText;
-    [SerializeField] private TextMeshProUGUI warehouseUpkeepCostText;
     [SerializeField] private TextMeshProUGUI goldText;
     [SerializeField] private TextMeshProUGUI totalText;
     [SerializeField] private TextMeshProUGUI unitTotalText;
+    [SerializeField] private TextMeshProUGUI storeTotalText;
+    [SerializeField] private TextMeshProUGUI storeUnitTotalText;
     [SerializeField] private GameObject insufficientFundsObject;
     [SerializeField] private GameObject itemsObject;
     [SerializeField] private GameObject storefrontObject;
-    private static int priceLevel1 = 0;
-    private static int priceLevel2 = 1000;
-    private static int priceLevel3 = 10000;
-    private static int upkeepLevel1 = 10;
-    private static int upkeepLevel2 = 100;
-    private static int upkeepLevel3 = 250;
+    private readonly static int priceLevel2 = 1000;
+    private readonly static int priceLevel3 = 10000;
     public int demandLevel { get; private set; }
     public int storageLevel { get; private set; }
     private int storeLevel;
     private int warehouseLevel;
-    public int gold;
+    [SerializeField] private int gold;
     IEnumerator RemoveInsufficientFundsText()
     {
         yield return new WaitForSeconds(3);
@@ -42,7 +36,7 @@ public class Gold : MonoBehaviour
         storeLevelText.text = "Store Lv:" + (storeLevel + 1);
         warehouseLevelText.text = "Warehouse LV:" + (warehouseLevel + 1);
         UpdateDemandAndStorage();
-        UpdateUpgradeAndDowngradeCostsAndUpkeep();
+        UpdateUpgradeCosts();
     }
     private void UpdateDemandAndStorage()
     {
@@ -61,43 +55,31 @@ public class Gold : MonoBehaviour
             return false;
         }
     }
-    private void UpdateUpgradeAndDowngradeCostsAndUpkeep()
+    private void UpdateUpgradeCosts()
     {
         if (storeLevel == 0)
         {
-            storeUpkeepCostText.text = "Upkeep Daily Cost:" + upkeepLevel1;
             storefrontPriceText.text = "Cost: " + priceLevel2;
-            storefrontDowngradeProfitText.text = "Profit:" + priceLevel1;
         }
         else if (storeLevel == 1)
         {
-            storeUpkeepCostText.text = "Upkeep Daily Cost:" + upkeepLevel2;
             storefrontPriceText.text = "Cost: " + priceLevel3;
-            storefrontDowngradeProfitText.text = "Profit:" + priceLevel2;
         }
         else
         {
-            storeUpkeepCostText.text = "Upkeep Daily Cost:" + upkeepLevel3;
             storefrontPriceText.text = "Max";
-            storefrontDowngradeProfitText.text = "Profit:" + priceLevel3;
         }
         if (warehouseLevel == 0)
         {
-            warehouseUpkeepCostText.text = "Upkeep Daily Cost:" + upkeepLevel1;
             warehousePriceText.text = "Cost: " + priceLevel2;
-            warehouseDowngradeProfitText.text = "Profit:" + priceLevel1;
         }
         else if (warehouseLevel == 1)
         {
-            warehouseUpkeepCostText.text = "Upkeep Daily Cost:" + upkeepLevel2;
             warehousePriceText.text = "Cost: " + priceLevel3;
-            warehouseDowngradeProfitText.text = "Profit:" + priceLevel2;
         }
         else
         {
-            warehouseUpkeepCostText.text = "Upkeep Daily Cost:" + upkeepLevel3;
             warehousePriceText.text = "Max";
-            warehouseDowngradeProfitText.text = "Profit:" + priceLevel3;
         }
     }
     public void UpgradeStoreLevel()
@@ -107,12 +89,14 @@ public class Gold : MonoBehaviour
             storeLevel += 1;
             gold -= priceLevel2;
             UpdateLevelText();
+            UpdateGoldText();
         }
         else if (storeLevel == 1 && gold >= priceLevel3)
         {
             storeLevel += 1;
             gold -= priceLevel3;
             UpdateLevelText();
+            UpdateGoldText();
         }
         else
         {
@@ -127,12 +111,14 @@ public class Gold : MonoBehaviour
             warehouseLevel += 1;
             gold -= priceLevel2;
             UpdateLevelText();
+            UpdateGoldText();
         }
         else if (warehouseLevel == 1 && gold >= priceLevel3)
         {
             warehouseLevel += 1;
             gold -= priceLevel3;
             UpdateLevelText();
+            UpdateGoldText();
         }
         else
         {
@@ -140,45 +126,9 @@ public class Gold : MonoBehaviour
             StartCoroutine(RemoveInsufficientFundsText());
         }
     }
-    public void DowngradeStoreLevel()
+    private void UpdateGoldText()
     {
-        if (storeLevel == 1)
-        {
-            storeLevel -= 1;
-            gold += priceLevel2;
-            UpdateLevelText();
-        }
-        else if (storeLevel == 2)
-        {
-            storeLevel -= 1;
-            gold += priceLevel3;
-            UpdateLevelText();
-        }
-        else
-        {
-            insufficientFundsObject.SetActive(true);
-            StartCoroutine(RemoveInsufficientFundsText());
-        }
-    }
-    public void DowngradeWarehouseLevel()
-    {
-        if (warehouseLevel == 1)
-        {
-            warehouseLevel -= 1;
-            gold += priceLevel2;
-            UpdateLevelText();
-        }
-        else if (warehouseLevel == 2)
-        {
-            warehouseLevel += 1;
-            gold += priceLevel3;
-            UpdateLevelText();
-        }
-        else
-        {
-            insufficientFundsObject.SetActive(true);
-            StartCoroutine(RemoveInsufficientFundsText());
-        }
+        goldText.text = gold.ToString();
     }
     public void BuyItems()
     {
@@ -219,6 +169,8 @@ public class Gold : MonoBehaviour
             storefrontObject.GetComponent<StoreGrain>().UpdateUnitText();
             storefrontObject.GetComponent<StoreFlowers>().UpdateUnitText();
             UpdateStorageAmount();
+            UpdateDemandAndStorage();
+            UpdateGoldText();
         }
         else
         {
@@ -228,7 +180,7 @@ public class Gold : MonoBehaviour
     }
     public void UpdateStorageAmount()
     {
-        storageLevel += (storefrontObject.GetComponent<StoreFirewood>().unit * itemsObject.GetComponent<Firewood>().size) + (storefrontObject.GetComponent<StoreFurniture>().unit * itemsObject.GetComponent<Furniture>().size) + (storefrontObject.GetComponent<StoreJewelry>().unit * 
+        storageLevel = (storefrontObject.GetComponent<StoreFirewood>().unit * itemsObject.GetComponent<Firewood>().size) + (storefrontObject.GetComponent<StoreFurniture>().unit * itemsObject.GetComponent<Furniture>().size) + (storefrontObject.GetComponent<StoreJewelry>().unit * 
             itemsObject.GetComponent<Jewelry>().size) + (storefrontObject.GetComponent<StoreGrain>().unit * itemsObject.GetComponent<Grain>().size) + (storefrontObject.GetComponent<StoreFlowers>().unit * itemsObject.GetComponent<Flowers>().size);
     }
     public int DemandCheck(int d, int u)
@@ -254,16 +206,17 @@ public class Gold : MonoBehaviour
         storefrontObject.GetComponent<StoreJewelry>().UpdateTotalText();
         storefrontObject.GetComponent<StoreGrain>().UpdateTotalText();
         storefrontObject.GetComponent<StoreFlowers>().UpdateTotalText();
+        IncomeSummary();
     }
     public void NextDaySales()
     {
         gold += storefrontObject.GetComponent<StoreFirewood>().expectedTotalSale + storefrontObject.GetComponent<StoreFurniture>().expectedTotalSale + storefrontObject.GetComponent<StoreJewelry>().expectedTotalSale + 
             storefrontObject.GetComponent<StoreGrain>().expectedTotalSale + storefrontObject.GetComponent<StoreFlowers>().expectedTotalSale;
-        storefrontObject.GetComponent<StoreFirewood>().unit -= DemandCheck(itemsObject.GetComponent<Firewood>().demand, storefrontObject.GetComponent<StoreFirewood>().unit);
-        storefrontObject.GetComponent<StoreFurniture>().unit -= DemandCheck(itemsObject.GetComponent<Furniture>().demand, storefrontObject.GetComponent<StoreFurniture>().unit);
-        storefrontObject.GetComponent<StoreJewelry>().unit -= DemandCheck(itemsObject.GetComponent<Jewelry>().demand, storefrontObject.GetComponent<StoreJewelry>().unit);
-        storefrontObject.GetComponent<StoreGrain>().unit -= DemandCheck(itemsObject.GetComponent<Grain>().demand, storefrontObject.GetComponent<StoreGrain>().unit);
-        storefrontObject.GetComponent<StoreFlowers>().unit -= DemandCheck(itemsObject.GetComponent<Flowers>().demand, storefrontObject.GetComponent<StoreFlowers>().unit);
+        storefrontObject.GetComponent<StoreFirewood>().unit -= DemandCheck(itemsObject.GetComponent<Firewood>().demand, storefrontObject.GetComponent<StoreFirewood>().unit) * storefrontObject.GetComponent<StoreFirewood>().sale;
+        storefrontObject.GetComponent<StoreFurniture>().unit -= DemandCheck(itemsObject.GetComponent<Furniture>().demand, storefrontObject.GetComponent<StoreFurniture>().unit) * storefrontObject.GetComponent<StoreFurniture>().sale;
+        storefrontObject.GetComponent<StoreJewelry>().unit -= DemandCheck(itemsObject.GetComponent<Jewelry>().demand, storefrontObject.GetComponent<StoreJewelry>().unit) * storefrontObject.GetComponent<StoreJewelry>().sale;
+        storefrontObject.GetComponent<StoreGrain>().unit -= DemandCheck(itemsObject.GetComponent<Grain>().demand, storefrontObject.GetComponent<StoreGrain>().unit) * storefrontObject.GetComponent<StoreGrain>().sale;
+        storefrontObject.GetComponent<StoreFlowers>().unit -= DemandCheck(itemsObject.GetComponent<Flowers>().demand, storefrontObject.GetComponent<StoreFlowers>().unit) * storefrontObject.GetComponent<StoreFlowers>().sale;
         itemsObject.GetComponent<Firewood>().NextDayPrices();
         itemsObject.GetComponent<Furniture>().NextDayPrices();
         itemsObject.GetComponent<Jewelry>().NextDayPrices();
@@ -275,16 +228,24 @@ public class Gold : MonoBehaviour
         storefrontObject.GetComponent<StoreGrain>().DailyUpdate();
         storefrontObject.GetComponent<StoreFlowers>().DailyUpdate();
         ExpectedTotalSales();
+        UpdateStorageAmount();
+        UpdateDemandAndStorage();
+        UpdateGoldText();
     }
     public void IncomeSummary()
     {
-        totalText.text = (storefrontObject.GetComponent<StoreFirewood>().expectedTotalSale + storefrontObject.GetComponent<StoreFurniture>().expectedTotalSale + storefrontObject.GetComponent<StoreJewelry>().expectedTotalSale +
-            storefrontObject.GetComponent<StoreGrain>().expectedTotalSale + storefrontObject.GetComponent<StoreFlowers>().expectedTotalSale).ToString();
-        unitTotalText.text = ((DemandCheck(itemsObject.GetComponent<Firewood>().demand, storefrontObject.GetComponent<StoreFirewood>().unit) * storefrontObject.GetComponent<StoreFirewood>().sale) + 
+        int i = (storefrontObject.GetComponent<StoreFirewood>().expectedTotalSale + storefrontObject.GetComponent<StoreFurniture>().expectedTotalSale + storefrontObject.GetComponent<StoreJewelry>().expectedTotalSale +
+            storefrontObject.GetComponent<StoreGrain>().expectedTotalSale + storefrontObject.GetComponent<StoreFlowers>().expectedTotalSale);
+        totalText.text = i.ToString();
+        storeTotalText.text = i.ToString();
+        int u = (DemandCheck(itemsObject.GetComponent<Firewood>().demand, storefrontObject.GetComponent<StoreFirewood>().unit) * storefrontObject.GetComponent<StoreFirewood>().sale) +
             (DemandCheck(itemsObject.GetComponent<Furniture>().demand, storefrontObject.GetComponent<StoreFurniture>().unit) * storefrontObject.GetComponent<StoreFurniture>().sale) +
-            (DemandCheck(itemsObject.GetComponent<Jewelry>().demand, storefrontObject.GetComponent<StoreJewelry>().unit) * storefrontObject.GetComponent<StoreJewelry>().sale) + 
+            (DemandCheck(itemsObject.GetComponent<Jewelry>().demand, storefrontObject.GetComponent<StoreJewelry>().unit) * storefrontObject.GetComponent<StoreJewelry>().sale) +
             (DemandCheck(itemsObject.GetComponent<Grain>().demand, storefrontObject.GetComponent<StoreGrain>().unit) * storefrontObject.GetComponent<StoreGrain>().sale) +
-            (DemandCheck(itemsObject.GetComponent<Flowers>().demand, storefrontObject.GetComponent<StoreFlowers>().unit) * storefrontObject.GetComponent<StoreFlowers>().sale)).ToString();
+            (DemandCheck(itemsObject.GetComponent<Flowers>().demand, storefrontObject.GetComponent<StoreFlowers>().unit) * storefrontObject.GetComponent<StoreFlowers>().sale);
+        unitTotalText.text = u.ToString();
+        storeUnitTotalText.text = u.ToString();
+        print(u.ToString());
     }
     public void UpdatePriceText()
     {

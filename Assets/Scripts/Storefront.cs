@@ -8,7 +8,7 @@ public class Storefront : MonoBehaviour
     public int unit;
     public int expectedTotalSale;
     public int sale { get; protected set; }
-    [SerializeField] public TextMeshProUGUI priceText;
+    public TextMeshProUGUI priceText;
     [SerializeField] protected TextMeshProUGUI unitText;
     [SerializeField] protected TextMeshProUGUI totalText;
     [SerializeField] protected TextMeshProUGUI summaryTotalText;
@@ -27,18 +27,10 @@ public class Storefront : MonoBehaviour
     {
         totalText.text = expectedTotalSale.ToString();
         summaryTotalText.text = expectedTotalSale.ToString();
+        goldObject.GetComponent<Gold>().IncomeSummary();
     }
     public virtual void Sell()
     {
-        if(sale == 1)
-        {
-            sale = 0;
-        }
-        else
-        {
-            sale = 1;
-        }
-        goldObject.GetComponent<Gold>().ExpectedTotalSales();
     }
     protected virtual void UpdatePriceText()
     {
