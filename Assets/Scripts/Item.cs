@@ -9,6 +9,8 @@ public class Item : MonoBehaviour
     public int price { get; protected set; }
     public int unit { get; protected set; }
     public int total { get; protected set; }
+    public float eventPriceMod;
+    public float eventDemandMod;
     protected float priceModifier;
     protected float springMin;
     protected float springMax;
@@ -86,8 +88,8 @@ public class Item : MonoBehaviour
     public void NextDayPrices()
     {
         priceModifier = RandomModifier();
-        price = Mathf.RoundToInt(basePrice * priceModifier);
-        demand = Mathf.RoundToInt(50 * priceModifier);
+        price = Mathf.RoundToInt(basePrice * priceModifier * eventPriceMod);
+        demand = Mathf.RoundToInt(50 * priceModifier * eventDemandMod);
         CalculateTotal();
         DisplayItemInfo();
     }
