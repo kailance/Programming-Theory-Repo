@@ -13,6 +13,8 @@ public class Calander : MonoBehaviour
     public ArrayList forestFireEvent { get; private set; } = new ArrayList();
     [SerializeField] private TextMeshProUGUI dateAndSeason;
     [SerializeField] private TextMeshProUGUI eventText;
+    [SerializeField] private TextMeshProUGUI[] calanderText;
+    [SerializeField] private string[] calanderString;
     [SerializeField] private GameObject itemsObject;
 
     public void NextDay()
@@ -33,6 +35,7 @@ public class Calander : MonoBehaviour
             {
                 season = 0;
                 AddRandomEventInfo();
+                UpdateCalanderText();
             }
         }
     }
@@ -59,6 +62,38 @@ public class Calander : MonoBehaviour
     {
         dateAndSeason.text = "Day " + date + " of " + Season();
         eventText.text = eventString;
+    }
+    private void AddToCalanderString(ArrayList e)
+    {
+        if (e[10].Equals(true))
+        {
+            if (MatchInt(e,1) == 0)
+            {
+                calanderString[MatchInt(e, 2) - 1] += e[0].ToString();
+            }
+            if (MatchInt(e, 1) == 1)
+            {
+                calanderString[MatchInt(e, 2) + 9] += e[0].ToString();
+            }
+            if (MatchInt(e, 1) == 2)
+            {
+                calanderString[MatchInt(e, 2) + 19] += e[0].ToString();
+            }
+            if (MatchInt(e, 1) == 3)
+            {
+                calanderString[MatchInt(e, 2) + 29] += e[0].ToString();
+            }
+        }
+    }
+    private void UpdateCalanderText()
+    {
+        AddToCalanderString(springFestivalEvent);
+        AddToCalanderString(fallFestivalEvent);
+        AddToCalanderString(forestFireEvent);
+        for (int i = 0; i <= 38; i++)
+        {
+            calanderText[i].text = calanderString[i];
+        }
     }
     private void AddFixedEventInfo()
     {
@@ -105,7 +140,7 @@ public class Calander : MonoBehaviour
     private float MatchFloat(ArrayList e, int i)
     {
         float value = 0;
-        while (value < 10)
+        while (value < 11)
         {
             if (e[i].Equals(value))
             {
@@ -114,6 +149,22 @@ public class Calander : MonoBehaviour
             else
             {
                 value += .1f;
+            }
+        }
+        return 0;
+    }
+    private int MatchInt(ArrayList e, int i)
+    {
+        int value = 0;
+        while (value < 11)
+        {
+            if (e[i].Equals(value))
+            {
+                return value;
+            }
+            else
+            {
+                value += 1;
             }
         }
         return 0;
@@ -180,9 +231,11 @@ public class Calander : MonoBehaviour
     void Start()
     {
         date = 1;
+        calanderString = new string[39];
         AddFixedEventInfo();
         UpdateString();
         ClearModificationEffects();
         RunAllEventChecks();
+        UpdateCalanderText();
     }
 }
