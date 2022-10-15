@@ -8,9 +8,20 @@ public class Firewood : Item
     {
         basePrice = 5;
         itemName = "Firewood";
-        Total = 0;
-        Unit = 0;
-        price = basePrice;
+        total = 0;
+        unit = 0;
+        size = 2;
+        springMin = .9f;
+        springMax = 1.1f;
+        summerMin = .8f;
+        summerMax = .9f;
+        fallMin = .9f;
+        fallMax = 1.1f;
+        winterMin = 1.1f;
+        winterMax = 1.3f;
+        priceModifier = RandomModifier();
+        demand = Mathf.RoundToInt(50 * priceModifier);
+        price = Mathf.RoundToInt(basePrice * priceModifier);
         DisplayItemInfo();
     }
 }
