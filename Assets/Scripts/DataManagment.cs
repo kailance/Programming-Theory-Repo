@@ -15,6 +15,8 @@ public class DataManagment : MonoBehaviour
     public int jewelryUnit;
     public int grainUnit;
     public int flowersUnit;
+    public List<int> flowersExperationDates;
+    public List<int> grainExperationDates;
     public int gold;
     public int date;
     public int season;
@@ -117,6 +119,14 @@ public class DataManagment : MonoBehaviour
         season = 0;
         storeLevel = 0;
         warehouseLevel = 0;
+        if (flowersExperationDates.Equals(null) != true)
+        {
+            flowersExperationDates.Clear();
+        }
+        if (grainExperationDates.Equals(null) != true)
+        {
+            grainExperationDates.Clear();
+        }
     }
     public string Season()
     {
@@ -146,6 +156,8 @@ public class DataManagment : MonoBehaviour
         data.jewelryUnit = jewelryUnit;
         data.grainUnit = grainUnit;
         data.flowersUnit = flowersUnit;
+        data.flowersExperationDates = flowersExperationDates;
+        data.grainExperationDates = grainExperationDates;
         data.gold = gold;
         data.date = date;
         data.season = season;
@@ -171,6 +183,16 @@ public class DataManagment : MonoBehaviour
             jewelryUnit = data.jewelryUnit;
             grainUnit = data.grainUnit;
             flowersUnit = data.flowersUnit;
+            if (flowersExperationDates.Equals(null) != true)
+            {
+                flowersExperationDates.Clear();
+            }
+            if (grainExperationDates.Equals(null) != true)
+            {
+                grainExperationDates.Clear();
+            }
+            flowersExperationDates = data.flowersExperationDates;
+            grainExperationDates = data.grainExperationDates;
             gold = data.gold;
             date = data.date;
             season = data.season;
@@ -188,6 +210,8 @@ public class DataManagment : MonoBehaviour
         public int jewelryUnit;
         public int grainUnit;
         public int flowersUnit;
+        public List<int> flowersExperationDates;
+        public List<int> grainExperationDates;
         public int gold;
         public int date;
         public int season;

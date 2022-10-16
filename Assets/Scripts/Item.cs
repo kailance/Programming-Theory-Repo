@@ -20,7 +20,6 @@ public class Item : MonoBehaviour
     protected float fallMax;
     protected float winterMin;
     protected float winterMax;
-    protected int experationDate;
     public int size { get; protected set; }
     public int demand { get; protected set; }
     protected string itemName;

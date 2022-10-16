@@ -5,8 +5,8 @@ using TMPro;
 
 public class Calendar : MonoBehaviour
 {
-    public int date;
-    public int season;
+    public int date { get; private set; }
+    public int season { get; private set; }
     private string eventString;
     public ArrayList springFestivalEvent { get; private set; } = new ArrayList();
     public ArrayList fallFestivalEvent { get; private set; } = new ArrayList();
@@ -124,8 +124,8 @@ public class Calendar : MonoBehaviour
         forestFireEvent.Add("Forest Fire");
         forestFireEvent.Add(1);
         forestFireEvent.Add(Random.Range(1,16));
-        forestFireEvent.Add(4f);
-        forestFireEvent.Add(2f);
+        forestFireEvent.Add(4);
+        forestFireEvent.Add(2);
         forestFireEvent.Add(true);
         forestFireEvent.Add(true);
         forestFireEvent.Add(false);
@@ -236,9 +236,9 @@ public class Calendar : MonoBehaviour
         if (DataManagment.Instance.loadGame)
         {
             forestFireEvent[2] = DataManagment.Instance.forestFireDate;
-            date = DataManagment.Instance.date;
-            season = DataManagment.Instance.season;
         }
+        date = DataManagment.Instance.date;
+        season = DataManagment.Instance.season;
         ClearModificationEffects();
         RunAllEventChecks();
         UpdateCalanderText();

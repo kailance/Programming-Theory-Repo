@@ -143,11 +143,13 @@ public class Gold : MonoBehaviour
             {
                 itemsObject.GetComponent<Jewelry>().UnitChangeDown();
             }
+            storefrontObject.GetComponent<StoreGrain>().AddExpirationDate();
             storefrontObject.GetComponent<StoreGrain>().unit += itemsObject.GetComponent<Grain>().unit;
             while (itemsObject.GetComponent<Grain>().unit != 0)
             {
                 itemsObject.GetComponent<Grain>().UnitChangeDown();
             }
+            storefrontObject.GetComponent<StoreFlowers>().AddExpirationDate();
             storefrontObject.GetComponent<StoreFlowers>().unit += itemsObject.GetComponent<Flowers>().unit;
             while (itemsObject.GetComponent<Flowers>().unit != 0)
             {
@@ -168,7 +170,7 @@ public class Gold : MonoBehaviour
             StartCoroutine(RemoveInsufficientFundsText());
         }
     }
-    public void UpdateStorageAmount()
+    private void UpdateStorageAmount()
     {
         storageLevel = (storefrontObject.GetComponent<StoreFirewood>().unit * itemsObject.GetComponent<Firewood>().size) + (storefrontObject.GetComponent<StoreFurniture>().unit * itemsObject.GetComponent<Furniture>().size) + (storefrontObject.GetComponent<StoreJewelry>().unit * 
             itemsObject.GetComponent<Jewelry>().size) + (storefrontObject.GetComponent<StoreGrain>().unit * itemsObject.GetComponent<Grain>().size) + (storefrontObject.GetComponent<StoreFlowers>().unit * itemsObject.GetComponent<Flowers>().size);
@@ -206,7 +208,9 @@ public class Gold : MonoBehaviour
         storefrontObject.GetComponent<StoreFirewood>().unit -= DemandCheck(itemsObject.GetComponent<Firewood>().demand, storefrontObject.GetComponent<StoreFirewood>().unit) * storefrontObject.GetComponent<StoreFirewood>().sale;
         storefrontObject.GetComponent<StoreFurniture>().unit -= DemandCheck(itemsObject.GetComponent<Furniture>().demand, storefrontObject.GetComponent<StoreFurniture>().unit) * storefrontObject.GetComponent<StoreFurniture>().sale;
         storefrontObject.GetComponent<StoreJewelry>().unit -= DemandCheck(itemsObject.GetComponent<Jewelry>().demand, storefrontObject.GetComponent<StoreJewelry>().unit) * storefrontObject.GetComponent<StoreJewelry>().sale;
+        storefrontObject.GetComponent<StoreGrain>().RemoveUnitsFromExpirationDate();
         storefrontObject.GetComponent<StoreGrain>().unit -= DemandCheck(itemsObject.GetComponent<Grain>().demand, storefrontObject.GetComponent<StoreGrain>().unit) * storefrontObject.GetComponent<StoreGrain>().sale;
+        storefrontObject.GetComponent<StoreFlowers>().RemoveUnitsFromExpirationDate();
         storefrontObject.GetComponent<StoreFlowers>().unit -= DemandCheck(itemsObject.GetComponent<Flowers>().demand, storefrontObject.GetComponent<StoreFlowers>().unit) * storefrontObject.GetComponent<StoreFlowers>().sale;
         itemsObject.GetComponent<Firewood>().NextDayPrices();
         itemsObject.GetComponent<Furniture>().NextDayPrices();
@@ -231,6 +235,8 @@ public class Gold : MonoBehaviour
         DataManagment.Instance.jewelryUnit = storefrontObject.GetComponent<StoreJewelry>().unit;
         DataManagment.Instance.grainUnit = storefrontObject.GetComponent<StoreGrain>().unit;
         DataManagment.Instance.flowersUnit = storefrontObject.GetComponent<StoreFlowers>().unit;
+        DataManagment.Instance.flowersExperationDates = storefrontObject.GetComponent<StoreFlowers>().expirationDate;
+        DataManagment.Instance.grainExperationDates = storefrontObject.GetComponent<StoreGrain>().expirationDate;
         DataManagment.Instance.gold = gold;
         DataManagment.Instance.storeLevel = storeLevel;
         DataManagment.Instance.warehouseLevel = warehouseLevel;

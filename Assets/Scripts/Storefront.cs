@@ -55,7 +55,7 @@ public class Storefront : MonoBehaviour
             sale = 1;
         }
     }
-    public void DailyUpdate()
+    public virtual void DailyUpdate()
     {
         UpdatePriceText();
         UpdateUnitText();
