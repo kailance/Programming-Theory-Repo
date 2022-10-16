@@ -20,4 +20,8 @@ public class StoreFirewood : Storefront
     {
         priceText.text = itemsObject.GetComponent<Firewood>().price.ToString();
     }
+    private void Awake()
+    {
+        unit = DataManagment.Instance.firewoodUnit;
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Flowers : Item
 { 
-    void Start()
+    void Awake()
     {
         basePrice = 5;
         itemName = "Flowers";
@@ -24,5 +24,24 @@ public class Flowers : Item
         demand = Mathf.RoundToInt(25 * priceModifier);
         price = Mathf.RoundToInt(basePrice * priceModifier);
         DisplayItemInfo();
+    }
+    public override void NextDayPrices()
+    {
+        priceModifier = RandomModifier();
+        price = Mathf.RoundToInt(basePrice * priceModifier * DoubleEventEffect(eventPriceMod));
+        demand = Mathf.RoundToInt(50 * priceModifier * DoubleEventEffect(eventDemandMod));
+        CalculateTotal();
+        DisplayItemInfo();
+    }
+    private float DoubleEventEffect(float i)
+    {
+        if(i > 1)
+        {
+            return i * 2;
+        }
+        else
+        {
+            return 1;
+        }
     }
 }

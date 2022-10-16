@@ -29,7 +29,7 @@ public class Item : MonoBehaviour
     [SerializeField] private TextMeshProUGUI priceString;
     [SerializeField] private TextMeshProUGUI unitString;
     [SerializeField] private TextMeshProUGUI totalString;
-    [SerializeField] private GameObject calanderObject;
+    [SerializeField] private GameObject calendarObject;
     protected void DisplayItemInfo()
     {
         baseString.text = basePrice.ToString();
@@ -39,19 +39,19 @@ public class Item : MonoBehaviour
     }
     protected float RandomModifier()
     {
-        if (calanderObject.GetComponent<Calander>().season == 0)
+        if (calendarObject.GetComponent<Calendar>().season == 0)
         {
             float i =
             Random.Range(springMin, springMax);
             return i;
         }
-        else if (calanderObject.GetComponent<Calander>().season == 1)
+        else if (calendarObject.GetComponent<Calendar>().season == 1)
         {
             float i =
             Random.Range(summerMin, summerMax);
             return i;
         }
-        else if (calanderObject.GetComponent<Calander>().season == 2)
+        else if (calendarObject.GetComponent<Calendar>().season == 2)
         {
             float i =
             Random.Range(fallMin, fallMax);
@@ -84,11 +84,11 @@ public class Item : MonoBehaviour
         unitString.text = unit.ToString();
         totalString.text = total.ToString();
     }
-    private void CalculateTotal()
+    protected void CalculateTotal()
     {
         total = price * unit;
     }
-    public void NextDayPrices()
+    public virtual void NextDayPrices()
     {
         priceModifier = RandomModifier();
         price = Mathf.RoundToInt(basePrice * priceModifier * eventPriceMod);

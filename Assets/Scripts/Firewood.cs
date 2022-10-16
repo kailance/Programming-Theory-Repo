@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Firewood : Item
 {
-    void Start()
+    void Awake()
     {
         basePrice = 5;
         itemName = "Firewood";

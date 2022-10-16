@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Furniture : Item
 {
-    void Start()
+    void Awake()
     {
         basePrice = 50;
         itemName = "Furniture";

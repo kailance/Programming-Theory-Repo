@@ -20,4 +20,8 @@ public class StoreFlowers : Storefront
     {
         priceText.text = itemsObject.GetComponent<Flowers>().price.ToString();
     }
+    private void Awake()
+    {
+        unit = DataManagment.Instance.flowersUnit;
+    }
 }

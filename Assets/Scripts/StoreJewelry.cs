@@ -19,5 +19,9 @@ public class StoreJewelry : Storefront
     protected override void UpdatePriceText()
     {
         priceText.text = itemsObject.GetComponent<Jewelry>().price.ToString();
-    }   
+    }
+    private void Awake()
+    {
+        unit = DataManagment.Instance.jewelryUnit;
+    }
 }

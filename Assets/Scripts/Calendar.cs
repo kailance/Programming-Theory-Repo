@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Calander : MonoBehaviour
+public class Calendar : MonoBehaviour
 {
     public int date;
     public int season;
@@ -13,8 +13,8 @@ public class Calander : MonoBehaviour
     public ArrayList forestFireEvent { get; private set; } = new ArrayList();
     [SerializeField] private TextMeshProUGUI dateAndSeason;
     [SerializeField] private TextMeshProUGUI eventText;
-    [SerializeField] private TextMeshProUGUI[] calanderText;
-    [SerializeField] private string[] calanderString;
+    [SerializeField] private TextMeshProUGUI[] calendarText;
+    [SerializeField] private string[] calendarString;
     [SerializeField] private GameObject itemsObject;
 
     public void NextDay()
@@ -40,7 +40,7 @@ public class Calander : MonoBehaviour
             }
         }
     }
-    private string Season()
+    public string Season()
     {
         if (season == 0)
         {
@@ -64,36 +64,36 @@ public class Calander : MonoBehaviour
         dateAndSeason.text = "Day " + date + " of " + Season();
         eventText.text = eventString;
     }
-    private void AddToCalanderString(ArrayList e)
+    private void AddToCalendarString(ArrayList e)
     {
         if (e[10].Equals(true))
         {
             if (MatchInt(e,1) == 0)
             {
-                calanderString[MatchInt(e, 2) - 1] += e[0].ToString();
+                calendarString[MatchInt(e, 2) - 1] += e[0].ToString();
             }
             if (MatchInt(e, 1) == 1)
             {
-                calanderString[MatchInt(e, 2) + 9] += e[0].ToString();
+                calendarString[MatchInt(e, 2) + 9] += e[0].ToString();
             }
             if (MatchInt(e, 1) == 2)
             {
-                calanderString[MatchInt(e, 2) + 19] += e[0].ToString();
+                calendarString[MatchInt(e, 2) + 19] += e[0].ToString();
             }
             if (MatchInt(e, 1) == 3)
             {
-                calanderString[MatchInt(e, 2) + 29] += e[0].ToString();
+                calendarString[MatchInt(e, 2) + 29] += e[0].ToString();
             }
         }
     }
     private void UpdateCalanderText()
     {
-        AddToCalanderString(springFestivalEvent);
-        AddToCalanderString(fallFestivalEvent);
-        AddToCalanderString(forestFireEvent);
+        AddToCalendarString(springFestivalEvent);
+        AddToCalendarString(fallFestivalEvent);
+        AddToCalendarString(forestFireEvent);
         for (int i = 0; i <= 38; i++)
         {
-            calanderText[i].text = calanderString[i];
+            calendarText[i].text = calendarString[i];
         }
     }
     private void AddFixedEventInfo()
@@ -154,7 +154,7 @@ public class Calander : MonoBehaviour
         }
         return 0;
     }
-    private int MatchInt(ArrayList e, int i)
+    public int MatchInt(ArrayList e, int i)
     {
         int value = 0;
         while (value < 11)
@@ -229,11 +229,16 @@ public class Calander : MonoBehaviour
         itemsObject.GetComponent<Flowers>().eventPriceMod = 1;
         itemsObject.GetComponent<Flowers>().eventDemandMod = 1;
     }
-    void Start()
+    void Awake()
     {
-        date = 1;
-        calanderString = new string[39];
+        calendarString = new string[39];
         AddFixedEventInfo();
+        if (DataManagment.Instance.loadGame)
+        {
+            forestFireEvent[2] = DataManagment.Instance.forestFireDate;
+            date = DataManagment.Instance.date;
+            season = DataManagment.Instance.season;
+        }
         ClearModificationEffects();
         RunAllEventChecks();
         UpdateCalanderText();

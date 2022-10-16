@@ -20,4 +20,8 @@ public class StoreGrain : Storefront
     {
         priceText.text = itemsObject.GetComponent<Grain>().price.ToString();
     }
+    private void Awake()
+    {
+        unit = DataManagment.Instance.grainUnit;
+    }
 }
