@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Flowers : Item
-{ 
+{ // INHERITANCE
     void Awake()
     {
         basePrice = 5;
@@ -24,6 +24,7 @@ public class Flowers : Item
         price = Mathf.RoundToInt(basePrice * priceModifier);
         DisplayItemInfo();
     }
+    // POLYMORPHISM
     public override void NextDayPrices()
     {
         priceModifier = RandomModifier();
@@ -32,6 +33,7 @@ public class Flowers : Item
         CalculateTotal();
         DisplayItemInfo();
     }
+    // ABSTRACTION
     private float DoubleEventEffect(float i)
     {
         if(i > 1)

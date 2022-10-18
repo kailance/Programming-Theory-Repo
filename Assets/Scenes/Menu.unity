@@ -3385,7 +3385,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u200B"
+  m_text: Defualt
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3939,6 +3939,8 @@ MonoBehaviour:
   jewelryUnit: 0
   grainUnit: 0
   flowersUnit: 0
+  flowersExperationDates: 
+  grainExperationDates: 
   gold: 0
   date: 0
   season: 0
@@ -3965,7 +3967,7 @@ MonoBehaviour:
   - {fileID: 433863870}
   - {fileID: 179298781}
   - {fileID: 14941855}
-  nameObject: {fileID: 1321538585}
+  nameText: {fileID: 1094882534}
 --- !u!1 &1550241275
 GameObject:
   m_ObjectHideFlags: 0

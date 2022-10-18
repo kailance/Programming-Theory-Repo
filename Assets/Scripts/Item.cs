@@ -5,7 +5,8 @@ using TMPro;
 
 public class Item : MonoBehaviour
 {
-    protected int basePrice { get; set; }
+    protected int basePrice;
+    // ENCAPSULATION
     public int price { get; protected set; }
     public int unit { get; protected set; }
     public int total { get; protected set; }

@@ -25,7 +25,7 @@ public class DataManagment : MonoBehaviour
     public int forestFireDate;
     public bool loadGame;
     [SerializeField] private List<GameObject> slotItems;
-    [SerializeField] private GameObject nameObject;
+    [SerializeField] private TMP_InputField nameText;
     private void Awake()
     {
         //Insures only one of the object is caried over. Also refered to as a singleton.
@@ -65,10 +65,10 @@ public class DataManagment : MonoBehaviour
     }
     public void NameSelected()
     {
-        fileName = "Defualt";
-        if (nameObject.GetComponent<TextMeshProUGUI>().text != "")
+            fileName = nameText.text;
+        if (fileName == null | fileName == "" | fileName == string.Empty | fileName == " ")
         {
-            fileName = nameObject.GetComponent<TextMeshProUGUI>().text;
+            fileName = "Defualt";
         }
         SceneManager.LoadScene(1);
 
@@ -148,7 +148,7 @@ public class DataManagment : MonoBehaviour
         }
     }
     public void SaveFile()
-    {
+    {        
         SaveData data = new SaveData();
         data.fileName = fileName;
         data.firewoodUnit = firewoodUnit;
